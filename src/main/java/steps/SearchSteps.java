@@ -1,9 +1,7 @@
 package steps;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
@@ -11,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePageObject;
 import pages.SearchPage;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class SearchSteps extends BasePageObject {
@@ -18,6 +17,7 @@ public class SearchSteps extends BasePageObject {
     SearchPage searchPage = new SearchPage();
     Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 15);
     private String count;
+    private String string;
 
     Function<? super WebDriver, Object> valueChanged = new ExpectedCondition<Object>() {
         @Override
@@ -32,34 +32,6 @@ public class SearchSteps extends BasePageObject {
 
     }
 
-    public void addOddToBasket(String count) {
-
-        int i = 1;
-        int countLocal = Integer.parseInt(count);
-
-        while (countLocal > 0) {
-            if (i % 2 != 0) {
-                waitAndClick(i);
-                countLocal--;
-            }
-            i++;
-        }
-    }
-
-    public void addEvenToBasket(String count) {
-
-        int i = 1;
-        int countLocal = Integer.parseInt(count);
-
-        while (countLocal > 0) {
-            if (i % 2 == 0) {
-                waitAndClick(i);
-                countLocal--;
-            }
-            i++;
-        }
-    }
-
 
     public String getRequiredCount() {
         System.out.println(searchPage.requiredCount.getText());
@@ -67,9 +39,7 @@ public class SearchSteps extends BasePageObject {
     }
 
     private void waitAndClick(int i) {
-        // count = getRequiredCount();
         click(BaseSteps.getDriver().findElement(By.xpath("(//*[contains(text(), 'В корзину')])[" + i + "]")));
-        //  wait.until(valueChanged);
     }
 
     public void setBrand(String brand) {
@@ -88,6 +58,40 @@ public class SearchSteps extends BasePageObject {
             click(searchPage.brandEnter);
             wait.until(ExpectedConditions.visibilityOf(BaseSteps.getDriver().findElement(By.xpath("//span[.='Бренды: " + subStr[i] + "']"))));
 
+        }
+    }
+
+    public void addToBasket(List<String> arg) {
+        count = arg.get(0);
+        string = arg.get(1);
+
+
+        System.out.println("count is "+ count);
+        System.out.println("string is "+ string);
+
+        int i = 1;
+        int countLocal = Integer.parseInt(count);
+
+        switch (string){
+            case ("четные"):
+                while (countLocal > 0) {
+                    if (i % 2 == 0) {
+                        waitAndClick(i);
+                        countLocal--;
+                    }
+                    i++;
+                }
+                break;
+
+            case ("нечетные"):
+                while (countLocal > 0) {
+                    if (i % 2 != 0) {
+                        waitAndClick(i);
+                        countLocal--;
+                    }
+                    i++;
+                }
+                break;
         }
     }
 }

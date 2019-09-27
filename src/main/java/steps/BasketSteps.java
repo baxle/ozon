@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePageObject;
 import pages.BasketPage;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.assertEquals;
 
 public class BasketSteps extends BasePageObject {
@@ -26,7 +28,6 @@ public class BasketSteps extends BasePageObject {
         wait.until(ExpectedConditions.visibilityOf(basketPage.totalPriceTable));
         String localSum = basketPage.totalPrice.getText().replaceAll("[^0-9]", "");
         sum = Integer.parseInt(localSum);
-        // System.out.println("sum is " + sum);
     }
 
 
@@ -37,8 +38,6 @@ public class BasketSteps extends BasePageObject {
             String localSum = BaseSteps.getDriver().findElement(By.xpath("(//div[@class='cart-item__column m-price']/div[1]//span[1])[" + i + "]")).getText().replaceAll("[^0-9]", "");
             sumEachProduct = sumEachProduct + Integer.parseInt(localSum);
         }
-
-        // System.out.println("сумма покупок "+sumEachProduct );
         assertEquals("Сумма покупок не соотвествует ожидаемой сумме", sumEachProduct, getSum());
 
     }
@@ -53,7 +52,9 @@ public class BasketSteps extends BasePageObject {
     }
 
     public void checkEmptyBasket() {
-       // mainSteps.selectMenu("Корзина");
+        new WebDriverWait(BaseSteps.getDriver(), 10)
+                .ignoring(NoSuchElementException.class)
+                .until(ExpectedConditions.visibilityOf(basketPage.isBasketEmpty));
         assertEquals("Корзина не пуста", "Корзина пуста",basketPage.isBasketEmpty.getText());
     }
 }

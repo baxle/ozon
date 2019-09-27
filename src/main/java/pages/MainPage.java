@@ -47,32 +47,10 @@ public WebElement search;
 @FindBy(xpath = "//*[@data-test-id='header-search-go']")
 public WebElement enter;
 
-
-
-
-/*
-    public void selectMenuItem(String menuName){
-        Actions action = new Actions(BaseSteps.getDriver());
-        action.moveToElement(BaseSteps.getDriver().findElement(By.xpath("//span[contains(text(), '"+menuName+"')]")));
-        action.perform();
-    }
-
-    public void checkMenuItem(String menu){
-        String actualTitle = BaseSteps.getDriver().findElement(By.xpath("//ul[@class='lg-menu__sub-list'][@aria-label='"+menu+"']")).getAttribute("aria-label");
-        assertTrue(String.format("Название меню [%s]. Ожидалось - [%s]",
-                actualTitle, menu), actualTitle.contains(menu));
-    }
-*/
-
-
     public void selectMenu(String menuName) {
         Actions actions = new Actions(BaseSteps.getDriver());
         actions.moveToElement(BaseSteps.getDriver().findElement(By.xpath("//span[contains(text(), '"+menuName+"')]")));
         BaseSteps.getDriver().findElement(By.xpath("//span[contains(text(), '"+menuName+"')]")).click();
     }
 
- /*   public void search(String itemName){
-        fillField(search, itemName);
-        click(enter);
-    }*/
 }

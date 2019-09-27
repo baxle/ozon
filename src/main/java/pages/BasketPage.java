@@ -25,5 +25,3 @@ public class BasketPage extends BasePageObject {
 
 }
 
-
-//(//div[@class='cart-item__column m-price']/div[1]//span[1])[count]

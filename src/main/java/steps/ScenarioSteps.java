@@ -3,6 +3,8 @@ package steps;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.List;
+
 public class ScenarioSteps {
 
     MainSteps mainPageSteps = new MainSteps();
@@ -10,8 +12,6 @@ public class ScenarioSteps {
     SearchSteps searchSteps = new SearchSteps();
     BasketSteps basketSteps = new BasketSteps();
 
-   /* Когда выбрано "Войти"
-    Когда выполнена авторизация*/
 
     @When("^выбрано \"(.+)\"$")
     public void selectMenu(String menu) {
@@ -33,16 +33,10 @@ public class ScenarioSteps {
         searchSteps.setMaxPrice(value);
     }
 
-    //добавлены в корзину первые "8" нечентых товаров
 
-    @When("^добавлены в корзину первые \"(.+)\" нечетных товаров")
-    public void addOddToBasket(String count) {
-        searchSteps.addOddToBasket(count);
-    }
-
-    @When("^добавлены в корзину первые \"(.+)\" четных товаров")
-    public void addEvenToBasket(String count) {
-        searchSteps.addEvenToBasket(count);
+    @When("^добавлены в корзину товары. первые (.*)$")
+    public void addOddToBasket(List<String> arg) {
+        searchSteps.addToBasket(arg);
     }
 
 

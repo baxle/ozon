@@ -28,10 +28,4 @@ public class SearchPage extends BasePageObject{
     @FindBy(xpath = "//div[@class='search-show-container']")
     public WebElement brandMenu;
 
-
-  /*  public void addToBasket(int count) {
-       //BaseSteps.getDriver().findElement(By.xpath("(//*[contains(text(), 'В корзину')])["+count+"]")).click();
-        click(BaseSteps.getDriver().findElement(By.xpath("(//*[contains(text(), 'В корзину')])["+count+"]")));
-    }*/
-
 }

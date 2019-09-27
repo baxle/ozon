@@ -7,7 +7,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features = {"src/test/resources/"}, glue = {"steps"},
         plugin = {
                 "util.AllureReporter",
-        }
+        }//,
+    //    tags = "@tag1"
 )
 
 public class CucumberRunner {
