@@ -2,40 +2,21 @@ package steps;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePageObject;
 import pages.SearchPage;
 
-import java.util.List;
-import java.util.function.Function;
-
 public class SearchSteps extends BasePageObject {
 
     SearchPage searchPage = new SearchPage();
     Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 15);
-    private String count;
-    private String string;
-
-    Function<? super WebDriver, Object> valueChanged = new ExpectedCondition<Object>() {
-        @Override
-        public Boolean apply(WebDriver webDriver) {
-            return !getRequiredCount().equals(count);
-        }
-    };
 
     public void setMaxPrice(String value) {
         searchPage.fillProblemField(searchPage.maxPrice, value + "\n");
         wait.until(ExpectedConditions.visibilityOf(searchPage.priceWindow));
 
-    }
-
-
-    public String getRequiredCount() {
-        System.out.println(searchPage.requiredCount.getText());
-        return searchPage.requiredCount.getText();
     }
 
     private void waitAndClick(int i) {
@@ -61,19 +42,13 @@ public class SearchSteps extends BasePageObject {
         }
     }
 
-    public void addToBasket(List<String> arg) {
-        count = arg.get(0);
-        string = arg.get(1);
-
-
-        System.out.println("count is "+ count);
-        System.out.println("string is "+ string);
+    public void addToBasket(String count, String string) {
 
         int i = 1;
         int countLocal = Integer.parseInt(count);
 
         switch (string){
-            case ("четные"):
+            case ("четных"):
                 while (countLocal > 0) {
                     if (i % 2 == 0) {
                         waitAndClick(i);
@@ -83,7 +58,7 @@ public class SearchSteps extends BasePageObject {
                 }
                 break;
 
-            case ("нечетные"):
+            case ("нечетных"):
                 while (countLocal > 0) {
                     if (i % 2 != 0) {
                         waitAndClick(i);

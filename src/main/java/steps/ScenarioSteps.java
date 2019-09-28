@@ -34,9 +34,9 @@ public class ScenarioSteps {
     }
 
 
-    @When("^добавлены в корзину товары. первые (.*)$")
-    public void addOddToBasket(List<String> arg) {
-        searchSteps.addToBasket(arg);
+    @When("в корзину добавлено первые \"(.*)\"  \"(.*)\" продуктов")
+    public void addOddToBasket(String count, String string) {
+        searchSteps.addToBasket(count, string);
     }
 
 
